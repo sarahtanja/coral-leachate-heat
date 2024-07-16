@@ -1,0 +1,120 @@
+---
+title: "Hobo Logger Temperatures in Experiment Tanks"
+subtitle: "Using a stupid temp controller and heating rod"
+author: "Sarah Tanja"
+date: "`r format(Sys.time(), '%d %B, %Y')`"  
+format:
+  html:
+    df-print: paged
+    toc: true
+    toc-location: right
+    smooth-scroll: true
+    link-external-icon: true
+    link-external-newwindow: true
+    code-fold: false
+    code-tools: true
+    code-copy: true
+    highlight-style: breeze
+    code-overflow: wrap
+    theme: minty
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+Using HOBO Pendant MX Temp/Light Loggers to monitor tank temperatures and lux. The loggers were setup according to the [user manual](https://www.onsetcomp.com/sites/default/files/2023-05/21536-P%20MX2201%20and%20MX2202%20Manual.pdf)
+
+
+
+# Install and load packages
+
+```{r}
+# Install packages
+if ("tidyverse" %in% rownames(installed.packages()) == 'FALSE') install.packages('tidyverse')
+if ("dplyr" %in% rownames(installed.packages()) == 'FALSE') install.packages('dplyr')
+if ("lubridate" %in% rownames(installed.packages()) == 'FALSE') install.packages('lubridate')
+if ("stringr" %in% rownames(installed.packages()) == 'FALSE') install.packages('stringr')
+
+# Load packages
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+library(stringr)
+```
+
+# Pull in data
+
+```{r}
+holdingtank <- read_csv("Holding tank  2024-07-04 07_40_27 HST (Data HST).csv")
+
+hightank <- read_csv("High Tank 2024-07-04 07_39_15 HST (Data HST).csv")
+```
+
+# Holding Tank Temp 
+
+```{r}
+holdingtank <- holdingtank %>%
+  rename(
+    temp = `Temperature   (°C)`,
+    datetime = `Date-Time (HST)`,
+    lux = `Light   (lux)`
+  ) %>% 
+  select(datetime, temp, lux)
+```
+
+```{r}
+holdingtank$datetime <- as.POSIXct(holdingtank$datetime, format="%m/%d/%Y %H:%M:%S")
+
+class(holdingtank$datetime)
+```
+
+```{r}
+print(holdingtank)
+```
+
+```{r}
+# holding
+ggplot(holdingtank, aes(x=datetime, y=temp)) +
+  geom_point() +
+  xlab("Date-Time (HST)") +
+  ylab("Temperature (C)") +
+  ggtitle("Holding Tank Temps") +
+  theme_minimal()
+
+```
+
+# High Tank Temp
+```{r}
+hightank <- hightank %>%
+  rename(
+    temp = `Temperature   (°C)`,
+    datetime = `Date-Time (HST)`,
+    lux = `Light   (lux)`
+  ) %>% 
+  select(datetime, temp, lux)
+```
+
+
+```{r}
+hightank$datetime <- as.POSIXct(hightank$datetime, format="%m/%d/%Y %H:%M:%S")
+
+class(hightank$datetime)
+```
+
+```{r}
+print(hightank)
+```
+
+```{r}
+ggplot(hightank, aes(x=datetime, y=temp)) +
+  geom_point() +
+  xlab("Date-Time (HST)") +
+  ylab("Temperature (C)") +
+  ggtitle("High Tank Temps") +
+  theme_minimal()
+```
+# Temp Ramp Outline
+
+
+- 
+

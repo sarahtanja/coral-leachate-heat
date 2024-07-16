@@ -1,0 +1,27 @@
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+# Background
+
+The [2019 Coral Bleaching event in Kaneohe Hawaii](https://www.fisheries.noaa.gov/feature-story/cautionary-tale-2019-coral-bleaching-event-hawaii)
+
+[Coral Reef Watch Degree Heating Weeks](https://coralreefwatch.noaa.gov/product/5km/tutorial/crw10a_dhw_product.php)
+
+# Download sea water temperature data
+
+This data is from the [NOAA CoastWatch ERRDAP server](https://pae-paha.pacioos.hawaii.edu/erddap/tabledap/aws_himb.graph?time%2Csea_water_temperature&time%3E=2018-06-30T00%3A00%3A00Z&time%3C=2024-06-30T00%3A00%3A00Z&.draw=lines&.color=0x000000&.bgColor=0xffccccff) and you can [access](https://www.pacioos.hawaii.edu/weather/obs-mokuoloe/#access) it from the Pacific Island Ocean Observing System (PacIOOS) site. The particular sensor suite at HIMB is maintained by the Coral Reef Ecology Lab (aka the 'Point Lab') and Dr. Ku'ulei Rodgers.
+
+> The HIMB weather station is owned and managed by the Hawaiʻi Institute of Marine Biology (HIMB) in collaboration with Western Weather Group (WWG) under the supervision of Dr. Kuʻulei Rodgers and Dr. Erik Franklin with funding by the U.S. National Science Foundation (NSF) Division of Biological Infrastructure (DBI) Award #1319270.
+
+From the ERDAPP server you can download the raw .csv data:
+
+```{r}
+https://pae-paha.pacioos.hawaii.edu/erddap/tabledap/aws_himb.csv?time,sea_water_temperature&time%3E=2018-06-30T00%3A00%3A00Z&time%3C=2024-06-30T00%3A00%3A00Z&.draw=lines&.color=0x000000&.bgColor=0xffccccff
+```
+
+Or an image of the generated graph:
+
+```{r}
+https://pae-paha.pacioos.hawaii.edu/erddap/tabledap/aws_himb.png?time,sea_water_temperature&time%3E=2018-06-30T00%3A00%3A00Z&time%3C=2024-06-30T00%3A00%3A00Z&.draw=lines&.color=0x000000&.bgColor=0xffccccff
+```
