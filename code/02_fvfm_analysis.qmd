@@ -1,0 +1,221 @@
+---
+title: "Fully Dark-Adapted Fv/Fm Analysis"
+subtitle: "From measurements taken by a Walz Diving PAMII"
+author: "Sarah Tanja"
+date: "`r format(Sys.time(), '%d %B, %Y')`"  
+format:
+  html:
+    df-print: paged
+    toc: true
+    toc-location: right
+    smooth-scroll: true
+    link-external-icon: true
+    link-external-newwindow: true
+    code-fold: false
+    code-tools: true
+    code-copy: true
+    highlight-style: breeze
+    code-overflow: wrap
+    theme: minty
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Overview
+
+Generalized Linear Mixed Models (GLMM) resources:
+
+Mixed Design Examples:
+<https://courses.washington.edu/psy524a/_book/linear-mixed-models.html#using-lmer-for-a-repeated-measures-design:~:text=example%2C%20mixed%20designs%3A-,24.3%20Mixed%20Design%20Example%3A%20Effect%20of%20Napping%20and%20Time%20on%20Perceptual%20Performance,-A%20mixed%2Ddesign>
+
+> This is a mixed design: The experiment has one within-subjects factor
+> and two between-subjects factors. The days of exposure are the
+> within-subjects factor (each coral was measured four times), and the
+> leachate condition (control vs. low vs. high) and the temperature
+> (ambient vs. hot) are the between-subjects factors.
+
+# Install and load packages
+
+```{r}
+# Install packages
+if ("tidyverse" %in% rownames(installed.packages()) == 'FALSE') install.packages('tidyverse')
+if ("dplyr" %in% rownames(installed.packages()) == 'FALSE') install.packages('dplyr')
+if ("ggplot2" %in% rownames(installed.packages()) == 'FALSE') install.packages('ggplot2')
+if ("hrbrthemes" %in% rownames(installed.packages()) == 'FALSE') install.packages('hrbrthemes')
+if ("lme4" %in% rownames(installed.packages()) == 'FALSE') install.packages('lme4')
+if ("lmerTest" %in% rownames(installed.packages()) == 'FALSE') install.packages('lmerTest')
+if ("Rmisc" %in% rownames(installed.packages()) == 'FALSE') install.packages('Rmisc')
+
+
+# Load packages
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(hrbrthemes)
+library(lme4)
+library(lmerTest)
+library(Rmisc)
+library(RColorBrewer)
+```
+
+# Pull in Fv/Fm data
+
+```{r}
+fvfm_alldays <- read_csv("../output/fvfm_alldays.csv")
+```
+
+Let's do an initial exploration of the data. We should have Fo, Fm, and
+FvFm as the measuring variables as well as sample_id, temp, colony,
+leachate, days_of_exposure, and treatment as the explanatory variables.
+The treatment column is a concatenation of the temp and leachate groups.
+
+```{r}
+summary(fvfm_alldays)
+```
+
+# Is it normal?
+
+```{r}
+# get the means and standard errors
+fvfm.summary <- summarySE(fvfm_alldays, measurevar="FvFm", groupvars=c("leachate","temp","days_of_exposure"))
+```
+
+# Graphing color palette
+
+```{r}
+display.brewer.all()
+```
+
+```{r}
+# Select specific colors
+color_heat <- brewer.pal(9, "YlOrBr")[5]  
+# Select the 5th color (a shade of orange/red)
+color_ambient <- brewer.pal(9, "YlGnBu")[5]  
+# Select the 5th color (a shade of blue/green) from "BuGn"
+
+# Print the selected colors
+print(color_heat)
+print(color_ambient)
+```
+
+```{r}
+# Set the order of the temp factor
+fvfm_alldays$temp <- factor(fvfm_alldays$temp, levels = c("hot", "ambient"))
+
+# Set the order of the leachate factor
+fvfm_alldays$leachate <- factor(fvfm_alldays$leachate, levels = c("control", "low", "high"))
+
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+```
+
+# Line plot
+
+```{r}
+ggplot(fvfm.summary, aes(x=days_of_exposure, y=FvFm, color = temp, shape = leachate)) +
+  geom_errorbar(aes(ymin=FvFm-se, ymax=FvFm+se), width=.2) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 2.5) +
+  scale_color_manual(values = temp_colors) # Custom colors for temp
+```
+
+# Boxplot
+
+fvfm_alldays is the dataframe Create the boxplot with custom colors for
+temp and greyscale for leachate concentration
+
+## By Day
+
+```{r}
+fvfm_facet <- ggplot(fvfm_alldays, aes(x = leachate, y = FvFm, color = temp, fill = leachate)) +
+  geom_boxplot() +
+  facet_grid(. ~ days_of_exposure, switch = "x") +
+  theme_bw() +
+  labs(
+    title = "Photosynthetic efficiency (Fv/Fm) across Treatments and Days of Exposure",
+    x = "Days of Exposure",
+    y = "Photosynthetic efficiency (Fv/Fm)"
+  ) +
+  theme(axis.text.x = element_blank()) +  
+    # Remove x-axis labels
+  scale_color_manual(values = temp_colors) +  
+    # Custom colors for temp
+  scale_fill_brewer(palette = "Greys")  
+    # Pale sequential fill for leachate
+
+fvfm_facet
+
+# save the plot as a .png
+ggsave("../output/fvfm_facet_plot.png", plot = fvfm_facet, width = 10, height = 6, dpi = 600)
+```
+
+## By Treatment
+
+```{r}
+# Create the boxplot
+fvfm_byday_treatment <- ggplot(fvfm_alldays, aes(x = as.factor(treatment), y = FvFm, color = as.factor(days_of_exposure))) +
+  geom_boxplot() +
+  facet_grid(. ~ treatment, switch = "x", scales = "free_x") +
+  theme_bw() +
+  labs(
+    title = "Photosynthetic efficiency (Fv/Fm) across Treatments and Days of Exposure",
+    x = "Treatment",
+    y = "Photosynthetic efficiency (Fv/Fm)"
+  ) +
+  theme(axis.text.x = element_blank(), # remove x-axis labels
+    strip.text = element_text(size = 6)  # adjust facet label size
+  )
+
+fvfm_byday_treatment
+
+# save the plot as a .png
+ggsave("../output/fvfm_byday_treatment_plot.png", plot = fvfm_byday_treatment, width = 10, height = 6, dpi = 600)
+```
+
+```{r}
+# Create a new column combining days_of_exposure and treatment
+fvfm_alldays$day_treatment <- interaction(fvfm_alldays$days_of_exposure, fvfm_alldays$treatment)
+
+# Set the order of the leachate factor
+fvfm_alldays$day_treatment <- factor(fvfm_alldays$day_treatment, 
+                                     levels = c("control", "low", "high"))
+
+# Create the boxplot
+fvfm_combo <- ggplot(fvfm_alldays, aes(x = as.factor(day_treatment), y = FvFm, fill = leachate, color = temp)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(
+    title = "Photosynthetic efficiency (Fv/Fm) across Treatments and Days",
+    x = "Days of Exposure and Treatment",
+    y = "Photosynthetic efficiency (Fv/Fm)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+    scale_color_manual(values = temp_colors) +  
+    # Custom colors for temp
+   scale_fill_brewer(palette = "Greys")  
+    # Pale sequential fill for leachate
+
+fvfm_combo
+
+# save the plot as a .png
+ggsave("../output/fvfm_combo_plot.png", plot = fvfm_combo, width = 10, height = 6, dpi = 600)
+
+```
+
+# GLMM
+
+```{r}
+lmer.fvfm <- lmer(FvFm ~ leachate*temp*days_of_exposure + (1|sample_id), data=fvfm_alldays)
+
+anova(lmer.fvfm)
+```
+
+> ::: callout-important
+> Duration of experiment had a significant effect (p = 0.02158) \* on
+> dark-adapted quantum yield (Fv/Fm)
+> :::

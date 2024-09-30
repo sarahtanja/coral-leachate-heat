@@ -1,0 +1,429 @@
+---
+title: "Alpha, Saturating Irradiance, rETRmax"
+subtitle: "Quasi Dark-Adapted Rapid Light Curve (RLC) Analysis"
+author: "Sarah Tanja"
+date: "`r format(Sys.time(), '%d %B, %Y')`"  
+format:
+  html:
+    df-print: paged
+    toc: true
+    toc-location: right
+    smooth-scroll: true
+    link-external-icon: true
+    link-external-newwindow: true
+    code-fold: false
+    code-tools: true
+    code-copy: true
+    highlight-style: breeze
+    code-overflow: wrap
+    theme: minty
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Overview
+
+Here we take the cleaned up data from the quasi-dark adapted rapid light
+curves and visualize the data and run an GLMM for each RLC metric:
+Alpha, Saturating Irradiance (Ik) and Maximum Relative Electron
+Transport Rate (rETRmax).
+
+Generalized Linear Mixed Models (GLMM) resources:
+
+Mixed Design Examples:
+<https://courses.washington.edu/psy524a/_book/linear-mixed-models.html#using-lmer-for-a-repeated-measures-design:~:text=example%2C%20mixed%20designs%3A-,24.3%20Mixed%20Design%20Example%3A%20Effect%20of%20Napping%20and%20Time%20on%20Perceptual%20Performance,-A%20mixed%2Ddesign>
+
+> This is a mixed design: The experiment has one within-subjects factor
+> and two between-subjects factors. The days of exposure are the
+> within-subjects factor (each coral was measured four times), and the
+> leachate condition (control vs. low vs. high) and the temperature
+> (ambient vs. hot) are the between-subjects factors.
+
+# Install and load packages
+
+```{r}
+# Install packages
+if ("tidyverse" %in% rownames(installed.packages()) == 'FALSE') install.packages('tidyverse')
+if ("dplyr" %in% rownames(installed.packages()) == 'FALSE') install.packages('dplyr')
+if ("ggplot2" %in% rownames(installed.packages()) == 'FALSE') install.packages('ggplot2')
+if ("hrbrthemes" %in% rownames(installed.packages()) == 'FALSE') install.packages('hrbrthemes')
+if ("lme4" %in% rownames(installed.packages()) == 'FALSE') install.packages('lme4')
+if ("lmerTest" %in% rownames(installed.packages()) == 'FALSE') install.packages('lmerTest')
+if ("Rmisc" %in% rownames(installed.packages()) == 'FALSE') install.packages('Rmisc')
+
+
+# Load packages
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(hrbrthemes)
+library(lme4)
+library(lmerTest)
+library(Rmisc)
+library(RColorBrewer)
+```
+
+# Pull in RLC data
+
+reg stands for regression from Jasby & Platt 1979
+
+```{r}
+reg_alldays <- read_csv("../output/reg_alldays.csv")
+```
+
+```{r}
+# Set the order of the leachate factor
+reg_alldays$leachate <- factor(reg_alldays$leachate, levels = c("control", "low", "high"))
+```
+
+```{r}
+summary(reg_alldays)
+```
+
+# Graphing color palette
+
+```{r}
+display.brewer.all()
+```
+
+```{r}
+# Select specific colors
+color_heat <- brewer.pal(9, "YlOrBr")[5]  
+# Select the 5th color (a shade of orange/red)
+color_ambient <- brewer.pal(9, "YlGnBu")[5]  
+# Select the 5th color (a shade of blue/green) from "BuGn"
+
+# Print the selected colors
+print(color_heat)
+print(color_ambient)
+```
+
+# Alpha
+
+## Is it normal?
+
+## Line plot
+
+```{r}
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+
+# get the means and standard errors
+alpha.summary <- summarySE(reg_alldays, measurevar="alpha", groupvars=c("leachate","temp","days_of_exposure"))
+
+# Set the order of the temp factor
+alpha.summary$temp <- factor(alpha.summary$temp, levels = c("hot", "ambient"))
+
+alpha_line <- ggplot(alpha.summary, aes(x=days_of_exposure, y=alpha, colour = temp, shape = leachate, linetype = leachate)) +
+  geom_errorbar(aes(ymin=alpha-se, ymax=alpha+se), width=.05) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 3)+ 
+  scale_color_manual(values = temp_colors)+ 
+    # Custom colors for temp
+  labs(
+    title = "Alpha (a) across Treatments and Day(s) of Exposure",
+    x = "Day(s) of Exposure",
+    y = "Alpha (a)"
+  ) 
+
+alpha_line
+
+# save the plot as a .png
+ggsave("../output/alpha_line_plot.png", plot = alpha_line, width = 10, height = 6, dpi = 600)
+```
+
+## Facetplot
+
+```{r}
+# Set the order of the temp factor
+reg_alldays$temp <- factor(reg_alldays$temp, levels = c("hot", "ambient"))
+
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+
+# reg_alldays is your dataframe
+# Create the boxplot with custom colors for temp and viridis for leachate
+alpha_facet <- ggplot(reg_alldays, aes(x = leachate, y = alpha, color = temp, fill = leachate)) +
+  geom_boxplot() +
+  facet_grid(. ~ days_of_exposure, switch = "x") +
+  theme_bw() +
+  labs(
+    title = "Alpha (a) across Treatments and Day(s) of Exposure",
+    x = "Day(s) of Exposure",
+    y = "Alpha (a)"
+  ) +
+  theme(axis.text.x = element_blank()) +  
+    # Remove x-axis labels
+  scale_color_manual(values = temp_colors) +  
+    # Custom colors for temp
+  scale_fill_brewer(palette = "Greys")  
+    # Pale sequential fill for leachate
+
+alpha_facet
+
+# save the plot as a .png
+ggsave("../output/alpha_facet_plot.png", plot = alpha_facet, width = 10, height = 6, dpi = 600)
+```
+
+## Boxplots
+
+```{r}
+
+# Create a new column combining days_of_exposure and treatment
+reg_alldays$day_treatment <- interaction(reg_alldays$days_of_exposure, reg_alldays$treatment)
+
+# Create the boxplot
+alpha_combo <- ggplot(reg_alldays, aes(x = day_treatment, y = alpha, color = treatment)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(
+    title = "Alpha (a) across Treatments and Days",
+    x = "Days of Exposure and Treatment",
+    y = "Alpha (a)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+alpha_combo
+
+# save the plot as a .png
+ggsave("../output/alpha_combo_plot.png", plot = alpha_combo, width = 10, height = 6, dpi = 600)
+```
+
+## GLMM
+
+```{r}
+lmer.alpha <- lmer(alpha ~ leachate*temp*days_of_exposure + (1|sample_id), data=reg_alldays)
+
+anova(lmer.alpha)
+```
+
+> Days of exposure had a significant effect on alpha (p = 6.953e-07
+> \*\*\*)
+
+# Saturating Irradiance (Ek/Ik)
+
+## Lineplot
+
+```{r}
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+
+# get the means and standard errors
+Ik.summary <- summarySE(reg_alldays, measurevar="Ik", groupvars=c("leachate","temp","days_of_exposure"))
+
+# Set the order of the temp factor
+Ik.summary$temp <- factor(Ik.summary$temp, levels = c("hot", "ambient"))
+
+Ik_line <- ggplot(Ik.summary, aes(x=days_of_exposure, y=Ik, colour = temp, shape = leachate, linetype = leachate)) +
+  geom_errorbar(aes(ymin=Ik-se, ymax=Ik+se), width=.05) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 3)+ 
+  scale_color_manual(values = temp_colors)+ 
+    # Custom colors for temp
+labs(
+    title = "Saturating Irradiance (Ik) across Treatments and Days",
+    x = "Day(s) of Exposure",
+    y = "Saturating Irradiance (Ik)"
+  )
+
+Ik_line
+
+# save the plot as a .png
+ggsave("../output/Ik_line_plot.png", plot = Ik_line, width = 10, height = 6, dpi = 600)
+```
+
+## Boxplots
+
+```{r}
+# Set the order of the temp factor
+reg_alldays$temp <- factor(reg_alldays$temp, levels = c("hot", "ambient"))
+
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+
+# reg_alldays is your dataframe
+# Create the boxplot with custom colors for temp and viridis for leachate
+Ik_byday <- ggplot(reg_alldays, aes(x = leachate, y = Ik, color = temp, fill = leachate)) +
+  geom_boxplot() +
+  facet_grid(. ~ days_of_exposure, switch = "x") +
+  theme_bw() +
+  labs(
+    title = "Saturating Irradiance (Ik) across Treatments and Days",
+    x = "Day(s) of Exposure",
+    y = "Saturating Irradiance (Ik)"
+  ) +
+  theme(axis.text.x = element_blank()) +  
+    # Remove x-axis labels
+  scale_color_manual(values = temp_colors) +  
+    # Custom colors for temp
+  scale_fill_brewer(palette = "Greys")  
+    # Pale sequential fill for leachate
+
+Ik_byday
+
+# save the plot as a .png
+ggsave("../output/Ik_facet_plot.png", plot = Ik_byday, width = 10, height = 6, dpi = 600)
+```
+
+```{r}
+# Create the boxplot
+Ik_combo <- ggplot(reg_alldays, aes(x = day_treatment, y = Ik, color = treatment)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(
+    title = "Saturating Irradiance (Ik) across Treatments and Days",
+    x = "Days of Exposure and Treatment",
+    y = "Saturating Irradiance (Ik)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Ik_combo
+
+# save the plot as a .png
+ggsave("../output/Ik_combo_plot.png", plot = Ik_combo, width = 10, height = 6, dpi = 600)
+```
+
+## GLMM
+
+```{r}
+lmer.Ik <- lmer(Ik ~ leachate*temp*days_of_exposure + (1|sample_id), data=reg_alldays)
+
+anova(lmer.Ik)
+```
+
+Days of exposure had a significant effect (p = 1.028e-10 \*\*\*) on
+saturating irradiance (Ik)
+
+# rETR~max~
+
+## Data exploration
+
+```{r}
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+
+# get the means and standard errors
+ETRm.summary <- summarySE(reg_alldays, measurevar="ETRm", groupvars=c("leachate","temp","days_of_exposure"))
+
+# Set the order of the temp factor
+ETRm.summary$temp <- factor(ETRm.summary$temp, levels = c("hot", "ambient"))
+
+ETRm_line <- ggplot(ETRm.summary, aes(x=days_of_exposure, y=ETRm, colour = temp, shape = leachate, linetype = leachate)) +
+  geom_errorbar(aes(ymin=ETRm-se, ymax=ETRm+se), width=.05) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 3)+ 
+  scale_color_manual(values = temp_colors)+ 
+    # Custom colors for temp
+labs(
+    title = "Maximum Relative Electron Transport Rate (rETRmax) across Treatments and Days",
+    x = "Day(s) of Exposure",
+    y = "Maximum Relative Electron Transport Rate (rETRmax)"
+  )
+
+ETRm_line
+
+# save the plot as a .png
+ggsave("../output/rETRm_line_plot.png", plot = ETRm_line, width = 10, height = 6, dpi = 600)
+```
+
+```{r}
+# get the means and standard errors
+ETRm.summary <- summarySE(reg_alldays, measurevar="ETRm", groupvars=c("leachate","temp","days_of_exposure"))
+
+ggplot(ETRm.summary, aes(x=days_of_exposure, y=ETRm, colour = temp, shape = leachate)) +
+  geom_errorbar(aes(ymin=ETRm-se, ymax=ETRm+se), width=.2) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 2)
+```
+
+## Boxplots
+
+```{r}
+# Set the order of the temp factor
+reg_alldays$temp <- factor(reg_alldays$temp, levels = c("hot", "ambient"))
+
+# Define custom colors for temp using ColorBrewer
+temp_colors <- c("hot" = brewer.pal(9, "YlOrBr")[7], 
+                      # Orange/Red for heat
+                   "ambient" = brewer.pal(9, "YlGnBu")[5]) 
+                      # Blue/Green for ambient
+
+# reg_alldays is your dataframe
+# Create the boxplot with custom colors for temp and viridis for leachate
+rETRm_facet <- ggplot(reg_alldays, aes(x = leachate, y = ETRm, color = temp, fill = leachate)) +
+  geom_boxplot() +
+  facet_grid(. ~ days_of_exposure, switch = "x") +
+  theme_bw() +
+  labs(
+    title = "Maximum Relative Electron Transport Rate (rETRmax) across Treatments and Days",
+    x = "Day(s) of Exposure",
+    y = "Maximum Relative Electron Transport Rate (rETRmax)"
+  ) +
+  theme(axis.text.x = element_blank()) +  
+    # Remove x-axis labels
+  scale_color_manual(values = temp_colors) +  
+    # Custom colors for temp
+  scale_fill_brewer(palette = "Greys")  
+    # Pale sequential fill for leachate
+
+rETRm_facet
+
+# save the plot as a .png
+ggsave("../output/rETRm_facet_plot.png", plot = rETRm_facet, width = 10, height = 6, dpi = 600)
+```
+
+```{r}
+# Create a named vector for labels
+day_labels <- setNames(reg_alldays$days_of_exposure, reg_alldays$day_treatment)
+
+# Create the boxplot
+rETRm_combo <- ggplot(reg_alldays, aes(x = day_treatment, y = ETRm, color = treatment)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(
+    title = "rETRmax across Treatments and Days",
+    x = "Days of Exposure across Treatments",
+    y = "rETRmax"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+    #axis.text.x = element_blank(),    # Remove x-axis text labels
+    )+
+  scale_x_discrete(labels = day_labels)
+
+rETRm_combo
+
+# save the plot as a .png
+ggsave("../output/rETRm_combo_plot.png", plot = rETRm_combo, width = 10, height = 6, dpi = 600)
+```
+
+## GLMM
+
+```{r}
+lmer.ETRm <- lmer(ETRm ~ leachate*temp*days_of_exposure + (1|sample_id), data=reg_alldays)
+
+anova(lmer.ETRm)
+```
+
+> Relative maximum electron transport rate (rETR~max~) was signficantly
+> affected by duration of experiment (p = \<2e-16\*\*\* ) only

@@ -1,0 +1,61 @@
+﻿Date,Time,Type,No.,1:PAR,1:Fo,1:Fm,1:Fv/Fm,sample_id,temp,colony,leachate,species,note
+2024-07-14,20:15:47.201,FO,3,0,422,1269,0.667,H3.2H,hot,3,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:16:49.738,FO,4,0,372,1050,0.646,H9.2H,hot,9,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:17:42.330,FO,5,0,337,1064,0.683,H5.2H,hot,5,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:18:35.580,FO,6,0,394,1142,0.655,H6.2H,hot,6,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:19:29.398,FO,7,0,887,2612,0.660,H2.2H,hot,2,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:25:41.166,FO,9,0,729,2097,0.652,A8.2L,ambient,8,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:27:55.774,FO,11,0,569,1747,0.674,A1.2L,ambient,1,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:30:12.548,FO,14,0,892,2887,0.691,A7.2L,ambient,7,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:31:42.038,FO,15,0,346,1018,0.660,A5.2L,ambient,5,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:33:32.792,FO,17,0,729,2248,0.676,A2.2L,ambient,2,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:39:52.018,FO,19,0,347,1032,0.664,H4.2C,hot,4,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:40:50.272,FO,20,0,643,1928,0.666,H7.2C,hot,7,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:41:52.556,FO,21,0,537,1512,0.645,H9.2C,hot,9,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:42:45.854,FO,22,0,598,1827,0.673,H5.2C,hot,5,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:44:41.278,FO,24,0,695,2049,0.661,H6.2C,hot,6,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:48:46.887,FO,25,0,485,1443,0.664,A7.2C,ambient,7,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:50:27.091,FO,26,0,919,2683,0.657,A1.2C,ambient,1,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:51:42.637,FO,27,0,787,2324,0.661,A2.2C,ambient,2,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:52:55.850,FO,28,0,683,2087,0.673,A10.2C,ambient,10,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:54:03.156,FO,29,0,718,2084,0.655,A9.2C,ambient,9,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:58:41.643,FO,30,0,194,586,0.669,A4.2H,ambient,4,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,20:59:33.868,FO,31,0,498,1538,0.676,A5.2H,ambient,5,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:00:35.693,FO,32,0,765,2262,0.662,A2.2H,ambient,2,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:01:30.904,FO,33,0,245,727,0.663,A8.2H,ambient,8,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:03:13.798,FO,34,0,600,1639,0.634,A1.2H,ambient,1,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:08:29.849,FO,35,0,515,1514,0.660,H4.2L,hot,4,low,Montipora capitata x Symbiodinium spp.,left in pyrex until 9:49
+2024-07-14,21:09:36.377,FO,36,0,498,1544,0.677,H1.2L,hot,1,low,Montipora capitata x Symbiodinium spp.,left in pyrex until 9:49
+2024-07-14,21:10:44.996,FO,37,0,498,1492,0.666,H6.2L,hot,6,low,Montipora capitata x Symbiodinium spp.,left in pyrex until 9:49
+2024-07-14,21:11:43.173,FO,38,0,557,1632,0.659,H10.2L,hot,10,low,Montipora capitata x Symbiodinium spp.,left in pyrex until 9:49
+2024-07-14,21:12:59.363,FO,39,0,365,1119,0.674,H7.2L,hot,7,low,Montipora capitata x Symbiodinium spp.,left in pyrex until 9:49
+2024-07-14,21:18:03.874,FO,40,0,471,1461,0.678,A5.2C,ambient,5,control,Montipora capitata x Symbiodinium spp.,returned to hot low by kat lasdin
+2024-07-14,21:19:09.893,FO,41,0,356,1075,0.669,A3.2C,ambient,3,control,Montipora capitata x Symbiodinium spp.,returned to hot low by kat lasdin
+2024-07-14,21:20:56.724,FO,42,0,671,2065,0.675,A6.2C,ambient,6,control,Montipora capitata x Symbiodinium spp.,returned to hot low by kat lasdin
+2024-07-14,21:22:01.850,FO,43,0,375,1072,0.650,A8.2C,ambient,8,control,Montipora capitata x Symbiodinium spp.,returned to hot low by kat lasdin
+2024-07-14,21:23:06.155,FO,44,0,323,936,0.655,A4.2C,ambient,4,control,Montipora capitata x Symbiodinium spp.,returned to hot low by kat lasdin
+2024-07-14,21:27:25.116,FO,45,0,565,1668,0.661,H10.2H,hot,10,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:28:40.872,FO,46,0,616,1977,0.688,H4.2H,hot,4,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:29:39.614,FO,47,0,351,1038,0.662,H8.2H,hot,8,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:30:49.148,FO,48,0,504,1576,0.680,H1.2H,hot,1,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:31:42.502,FO,49,0,779,2322,0.665,H7.2H,hot,7,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:37:09.161,FO,50,0,595,1789,0.667,A7.2H,ambient,7,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:38:03.740,FO,51,0,865,2492,0.653,A10.2H,ambient,10,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:39:03.495,FO,52,0,1026,2856,0.641,A3.2H,ambient,3,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:40:50.526,FO,53,0,718,2065,0.652,A9.2H,ambient,9,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:41:53.969,FO,54,0,624,1777,0.649,A6.2H,ambient,6,high,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:58:20.700,FO,55,0,834,2316,0.640,H10.2C,hot,10,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,21:59:20.342,FO,56,0,694,2162,0.679,H8.2C,hot,8,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:01:24.807,FO,57,0,366,1088,0.664,H1.2C,hot,1,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:02:32.685,FO,58,0,773,2325,0.668,H3.2C,hot,3,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:03:32.145,FO,59,0,379,1123,0.663,H2.2C,hot,2,control,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:09:54.467,FO,61,0,773,2115,0.635,A10.2L,ambient,10,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:11:05.350,FO,62,0,253,675,0.625,A9.2L,ambient,9,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:12:24.857,FO,63,0,936,2537,0.631,A3.2L,ambient,3,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:14:25.706,FO,65,0,436,1269,0.656,A6.2L,ambient,6,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:15:21.548,FO,66,0,447,1224,0.635,A4.2L,ambient,4,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:20:19.580,FO,67,0,554,1587,0.651,H5.2L,hot,5,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:21:10.428,FO,68,0,677,1951,0.653,H2.2L,hot,2,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:22:02.618,FO,69,0,658,1985,0.669,H8.2L,hot,8,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:23:24.061,FO,71,0,570,1536,0.629,H3.2L,hot,3,low,Montipora capitata x Symbiodinium spp.,
+2024-07-14,22:24:17.057,FO,72,0,759,2133,0.644,H9.2L,hot,9,low,Montipora capitata x Symbiodinium spp.,

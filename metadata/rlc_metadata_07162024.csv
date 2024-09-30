@@ -1,0 +1,61 @@
+﻿date,No.,sample_id,temp,colony,leachate,koa_color,notes,species
+7/16/2024,1,H9.2H,hot,9,high,26/22/77,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,14,H6.2H,hot,6,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,27,H5.2H,hot,5,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,40,H3.2H,hot,3,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,53,H2.2H,hot,2,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,66,A3.2C,ambient,3,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,79,A5.2C,ambient,5,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,92,A8.2C,ambient,8,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,105,A6.2C,ambient,6,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,118,A4.2C,ambient,4,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,143,H8.2L,hot,8,low,26,new glue,Montipora capitata x Symbiodinium spp. 
+7/16/2024,156,H9.2L,hot,9,low,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,169,H3.2L,hot,3,low,22/26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,182,H5.2L,hot,5,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,195,H2.2L,hot,2,low,22,bleached tips,Montipora capitata x Symbiodinium spp. 
+7/16/2024,208,A2.2H,ambient,2,high,22,bleached tips,Montipora capitata x Symbiodinium spp. 
+7/16/2024,221,A1.2H,ambient,1,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,234,A5.2H,ambient,5,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,247,A8.2H,ambient,8,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,260,A4.2H,ambient,4,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,273,H10.2C,hot,10,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,286,H8.2C,hot,8,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,299,H2.2C,hot,2,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,312,H1.2C,hot,1,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,325,H3.2C,hot,3,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,338,A7.2L,ambient,7,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,351,A2.2L,ambient,2,low,22/26,bleached tips,Montipora capitata x Symbiodinium spp. 
+7/16/2024,364,A1.2L,ambient,1,low,22/26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,377,A5.2L,ambient,5,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,390,A8.2L,ambient,8,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,403,H5.2C,hot,5,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,416,H4.2C,hot,4,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,429,H9.2C,hot,9,control,26/22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,442,H7.2C,hot,7,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,455,H6.2C,hot,6,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,468,A10.2L,ambient,10,low,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,481,A9.2L,ambient,9,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,494,A4.2L,ambient,4,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,507,A3.2L,ambient,3,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,520,A6.2L,ambient,6,low,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,533,H4.2L,hot,4,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,546,H10.2L,hot,10,low,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,559,H1.2L,hot,1,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,572,H6.2L,hot,6,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,585,H7.2L,hot,7,low,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,598,A9.2H,ambient,9,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,611,A7.2H,ambient,7,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,624,A3.2H,ambient,3,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,637,A6.2H,ambient,6,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,650,A10.2H,ambient,10,high,26/22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,676,H7.2H,hot,7,high,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,689,H10.2H,hot,10,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,702,H4.2H,hot,4,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,715,H8.2H,hot,8,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,754,H1.2H,hot,1,high,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,767,A7.2C,ambient,7,control,26,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,780,A9.2C,ambient,9,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,793,A2.2C,ambient,2,control,22,bleached tips,Montipora capitata x Symbiodinium spp. 
+7/16/2024,806,A10.2C,ambient,10,control,22,,Montipora capitata x Symbiodinium spp. 
+7/16/2024,819,A1.2C,ambient,1,control,22,,Montipora capitata x Symbiodinium spp. 
